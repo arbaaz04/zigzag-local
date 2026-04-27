@@ -758,3 +758,36 @@ The current codebase exposes the routes above, but it still does **not** fully i
 - no COD refund approval enforcement
 
 So this document is an accurate **route-level API reference for the current code**, not a claim that the full assignment has already been completed.
+
+---
+
+## Deployment with Docker Compose
+
+This repository now includes a `docker-compose.yml` that builds:
+- `db`: PostgreSQL
+- `backend`: Node/Express backend with Prisma
+- `frontend`: Vite React app served by Nginx
+
+### Required environment variables
+Create a `.env` next to `docker-compose.yml` with values such as:
+
+```env
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=secret123
+POSTGRES_DB=wbad_project
+JWT_SECRET=secret123
+VITE_API_URL=http://localhost:3000
+```
+
+### Start the stack
+
+```bash
+docker compose up -d --build
+```
+
+### Access the app
+- Frontend: `http://<your-vps-ip>/`
+- Backend API: `http://<your-vps-ip>:3000/`
+
+### Notes for Dokploy
+If Dokploy is configured to deploy from this repo, it should use the root `docker-compose.yml` file. Ensure the same environment variables are provided by Dokploy or in a `.env` file on the VPS.
