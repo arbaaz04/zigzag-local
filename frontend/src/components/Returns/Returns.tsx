@@ -22,7 +22,7 @@ const Returns: React.FC = () => {
     setError(null);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
       const token = localStorage.getItem('token');
       
       const response = await axios.post(
@@ -59,7 +59,7 @@ const Returns: React.FC = () => {
     setError(null);
     setReason(returnReason);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
       const token = localStorage.getItem('token');
       
       for (const order of validatedOrders) {

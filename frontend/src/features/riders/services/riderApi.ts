@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { Order } from '../../orders/services/orderApi';
 
-const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const apiUrl = import.meta.env.VITE_API_URL || '/api';
 
 const client = axios.create({ baseURL: `${apiUrl}/api` });
 

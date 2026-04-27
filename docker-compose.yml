@@ -27,15 +27,13 @@ services:
       PORT: 3000
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-wbad_project}?schema=public
       JWT_SECRET: ${JWT_SECRET:-secret123}
-    ports:
-      - "3000:3000"
 
   frontend:
     build:
       context: .
       dockerfile: frontend/Dockerfile
       args:
-        VITE_API_URL: ${VITE_API_URL:-http://localhost:3000}
+        VITE_API_URL: ${VITE_API_URL:-/api}
     restart: unless-stopped
     ports:
       - "80:80"

@@ -39,7 +39,7 @@ const Signup: React.FC = () => {
     setLoading(true);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+      const apiUrl = import.meta.env.VITE_API_URL || '/api';
       const response = await axios.post(`${apiUrl}/api/auth/register`, {
         name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,

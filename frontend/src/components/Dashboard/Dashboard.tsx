@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
 
   const [currentTime, setCurrentTime] = useState(new Date());
   const userName = localStorage.getItem('userName') || 'User';
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
 
   // Fetch orders on mount and when navigating back
   useEffect(() => {
