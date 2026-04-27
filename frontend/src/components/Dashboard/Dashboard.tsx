@@ -7,7 +7,6 @@ import OrderFilters from './OrderFilters';
 import BlacklistWarningModal from './BlacklistWarningModal';
 import LabelPreviewModal from './LabelPreviewModal';
 import StatusUpdateModal from './StatusUpdateModal';
-import Spinner from '../Common/Spinner';
 import './Dashboard.css';
 
 interface Order {
@@ -29,8 +28,6 @@ interface Order {
   createdAt: string;
   updatedAt: string;
 }
-
-type DashboardView = 'list';
 
 const StatCard: React.FC<{ title: string; value: number; color: string; icon: React.ReactNode }> = ({ title, value, color, icon }) => (
   <div className="stat-card">
@@ -56,8 +53,6 @@ const Dashboard: React.FC = () => {
   const [showBlacklistWarning, setShowBlacklistWarning] = useState(false);
   const [showLabelPreview, setShowLabelPreview] = useState(false);
   const [showStatusUpdate, setShowStatusUpdate] = useState(false);
-  const [warningOrderId, setWarningOrderId] = useState<number | null>(null);
-  const [warningPhoneNumber, setWarningPhoneNumber] = useState('');
 
   const [currentTime, setCurrentTime] = useState(new Date());
   const userName = localStorage.getItem('userName') || 'User';
@@ -99,39 +94,6 @@ const Dashboard: React.FC = () => {
   };
 
 
-  const handlePrintLabel = (orderId: number) => {
-    const order = orders.find(o => o.id === orderId);
-    if (order) {
-      if (order.isBlacklisted) {
-        setWarningOrderId(orderId);
-        setWarningPhoneNumber(order.phoneNumber);
-        setShowBlacklistWarning(true);
-      } else {
-        setSelectedOrder(order);
-        setShowLabelPreview(true);
-      }
-    }
-  };
-
-  const handleDeleteOrder = async (orderId: number) => {
-    if (!window.confirm('Are you sure you want to delete this order?')) return;
-
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.delete(`${API_URL}/api/orders/${orderId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      if (response.data.success) {
-        setOrders(orders.filter(o => o.id !== orderId));
-        setFilteredOrders(filteredOrders.filter(o => o.id !== orderId));
-        alert('Order deleted successfully');
-      }
-    } catch (error: any) {
-      console.error('Error deleting order:', error);
-      alert('Failed to delete order');
-    }
-  };
 
 
   const handlePrintLabelConfirm = async () => {
@@ -194,8 +156,6 @@ const Dashboard: React.FC = () => {
     const order = orders.find(o => o.id === orderId);
     if (order) {
       if (order.isBlacklisted) {
-        setWarningOrderId(orderId);
-        setWarningPhoneNumber(order.phoneNumber);
         setShowBlacklistWarning(true);
         return;
       }

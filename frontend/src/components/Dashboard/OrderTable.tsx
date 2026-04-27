@@ -1,5 +1,4 @@
 import React from 'react';
-import { Edit, Printer, Trash2 } from 'lucide-react';
 import StatusBadge from './StatusBadge';
 import Spinner from '../Common/Spinner';
 import './OrderTable.css';

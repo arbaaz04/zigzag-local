@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Trash2, Upload, X } from 'lucide-react';
+import { Search, Trash2, Upload, X } from 'lucide-react';
 import axios from 'axios';
 import './BlacklistPage.css';
 

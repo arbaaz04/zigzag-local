@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, CheckCircle } from 'lucide-react';
+import { X } from 'lucide-react';
 import LifecycleSelector from '../../features/orders/components/LifecycleSelector';
 import './StatusUpdateModal.css';
 
