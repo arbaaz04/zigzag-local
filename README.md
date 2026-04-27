@@ -777,10 +777,9 @@ POSTGRES_PASSWORD=secret123
 POSTGRES_DB=wbad_project
 JWT_SECRET=secret123
 VITE_API_URL=/api
-FRONTEND_PORT=8080
 ```
 
-If port `8080` is already in use on your VPS, set `FRONTEND_PORT` to another free host port.
+The frontend is published on host port `8080` by default. Access the app at `http://<your-vps-ip>:8080/`.
 
 ### Start the stack
 
