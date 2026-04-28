@@ -30,7 +30,7 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-wbad_project}?schema=public
       JWT_SECRET: ${JWT_SECRET:-secret123}
     ports:
-      - "3000:3000"
+      - "3001:3000"
 
 volumes:
   db_data:
