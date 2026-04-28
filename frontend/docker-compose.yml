@@ -7,6 +7,6 @@ services:
         VITE_API_URL: ${VITE_API_URL:-https://webdevbackend.chatflow.tech:3000}
     restart: unless-stopped
     ports:
-      - "${FRONTEND_PORT:-80}:80"
+      - "90:80"
     environment:
       VITE_API_URL: ${VITE_API_URL:-https://webdevbackend.chatflow.tech:3000}
