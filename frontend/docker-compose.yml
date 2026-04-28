@@ -4,9 +4,9 @@ services:
       context: ..
       dockerfile: frontend/Dockerfile
       args:
-        VITE_API_URL: ${VITE_API_URL:-https://webdevbackend.chatflow.tech:3000}
+        VITE_API_URL: ${VITE_API_URL:-https://webdevbackend.chatflow.tech}
     restart: unless-stopped
     ports:
       - "90:80"
     environment:
-      VITE_API_URL: ${VITE_API_URL:-https://webdevbackend.chatflow.tech:3000}
+      VITE_API_URL: ${VITE_API_URL:-https://webdevbackend.chatflow.tech}
