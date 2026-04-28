@@ -763,33 +763,68 @@ So this document is an accurate **route-level API reference for the current code
 
 ## Deployment with Docker Compose
 
-This repository now includes a `docker-compose.yml` that builds:
-- `db`: PostgreSQL
-- `backend`: Node/Express backend with Prisma
-- `frontend`: Vite React app served by Nginx
+This repository includes separate `docker-compose.yml` files for independent deployments:
 
-### Required environment variables
-Create a `.env` next to `docker-compose.yml` with values such as:
+### Backend Deployment
+- **Location**: `backend/docker-compose.yml`
+- **Includes**: PostgreSQL database + Node/Express backend with Prisma
+- **Services**: `db`, `backend`
 
+**Environment variables** (create `backend/.env`):
 ```env
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=secret123
 POSTGRES_DB=wbad_project
 JWT_SECRET=secret123
-VITE_API_URL=/api
 ```
 
-The frontend is published on host port `8080` by default. Access the app at `http://<your-vps-ip>:8080/`.
-
-### Start the stack
-
+**Start backend**:
 ```bash
+cd backend
 docker compose up -d --build
 ```
 
-### Access the app
-- Frontend: `http://<your-vps-ip>/`
-- Backend API: `http://<your-vps-ip>:3000/`
+Backend runs on `http://localhost:3000`
+
+### Frontend Deployment
+- **Location**: `frontend/docker-compose.yml`
+- **Includes**: Vite React app served by Nginx
+
+**Environment variables** (create `frontend/.env`):
+```env
+VITE_API_URL=http://<backend-url>:3000
+FRONTEND_PORT=80
+```
+
+**Start frontend**:
+```bash
+cd frontend
+docker compose up -d --build
+```
+
+Frontend runs on `http://localhost`
+
+### Deployment on separate VPS instances
+
+**Backend VPS**:
+```bash
+cd backend
+cp .env.example .env
+# Edit .env with your values
+docker compose up -d --build
+```
+
+**Frontend VPS**:
+```bash
+cd frontend
+cp .env.example .env
+# Edit .env to set VITE_API_URL to your backend VPS IP/domain:3000
+docker compose up -d --build
+```
 
 ### Notes for Dokploy
-If Dokploy is configured to deploy from this repo, it should use the root `docker-compose.yml` file. Ensure the same environment variables are provided by Dokploy or in a `.env` file on the VPS.
+Deploy each folder separately:
+- Backend: point Dokploy to the `backend/` directory
+- Frontend: point Dokploy to the `frontend/` directory
+
+Each will have its own `docker-compose.yml` and can be deployed independently.
